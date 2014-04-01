@@ -9,15 +9,15 @@
 
     State.prototype.initializeObjects = function() {
       var center;
-      center = new Point(200, 200);
+      center = $V([200, 200]);
       return [new Player(center)] + this.initializeEnemies();
     };
 
     State.prototype.initializeEnemies = function(center) {
       return _([1, 2, 3, 4, 5]).map(function(i) {
         var offset;
-        offset = new Point((Math.random() * 2) - 1, (Math.random() * 2) - 1);
-        return new NormalEnemy(center.add(offset.mul(100)));
+        offset = $V([(Math.random() * 2) - 1, (Math.random() * 2) - 1]);
+        return new NormalEnemy(center.add(offset.multiply(100)));
       });
     };
 
