@@ -30,6 +30,10 @@
       return this.size.x(1 / 2);
     };
 
+    GameObject.prototype.getRadius = function() {
+      return this.size.e(0) / 2;
+    };
+
 
     /* MAIN FUNCTIONS */
 
@@ -66,6 +70,13 @@
       if (this.image != null) {
         return ctx.drawImage(this.image, -this.size.e(1) / 2, -this.size.e(2) / 2, this.size.e(1), this.size.e(2));
       }
+    };
+
+
+    /* UTILITIES */
+
+    GameObject.prototype.isCollidingWith = function(otherGameObject) {
+      return false;
     };
 
     return GameObject;

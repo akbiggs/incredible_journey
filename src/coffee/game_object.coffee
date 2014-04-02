@@ -16,10 +16,13 @@ window.GameObject = class GameObject
   ### GETTERS ###
 
   getCenter: ->
-    @position.add(@getHalfSize())
+    return @position.add(@getHalfSize())
 
   getHalfSize: ->
-    @size.x(1/2)
+    return @size.x(1/2)
+
+  getRadius: ->
+    return @size.e(0) / 2
 
   ### MAIN FUNCTIONS ###
 
@@ -50,3 +53,9 @@ window.GameObject = class GameObject
 
     if @image?
       ctx.drawImage(@image, -@size.e(1) / 2, -@size.e(2) / 2, @size.e(1), @size.e(2))
+
+  ### UTILITIES ###
+
+  isCollidingWith: (otherGameObject) ->
+    return false
+
