@@ -9,7 +9,7 @@
 
     GameObject.prototype.size = null;
 
-    GameObject.prototype.velocity = null;
+    GameObject.prototype.velocity = $V([0, 0]);
 
     GameObject.prototype.rotation = 0;
 
@@ -41,6 +41,9 @@
       var param, value, _i, _len;
       this.position = position;
       this.size = size;
+      if (params == null) {
+        params = {};
+      }
       for (value = _i = 0, _len = params.length; _i < _len; value = ++_i) {
         param = params[value];
         this[param] = value;

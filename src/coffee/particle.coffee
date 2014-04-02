@@ -6,12 +6,13 @@ window.Particle = class Particle extends GameObject
       initialLifespan: 20
       acceleration: $V([0, 0])
     properties = Object.extend(defaults, properties)
+
+    super(position, size)
+
     for key, value of properties
       @[key] = value
 
     @lifespan = @initialLifespan
-
-    super(position, size, velocity, @rotation)
 
   update: ->
     @lifespan = Math.max(0, @lifespan - 1)

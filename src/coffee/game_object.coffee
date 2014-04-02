@@ -5,7 +5,7 @@ window.GameObject = class GameObject
 
   position: null
   size: null
-  velocity: null
+  velocity: $V [0,0]
 
   rotation: 0
   scale: 1
@@ -26,7 +26,7 @@ window.GameObject = class GameObject
 
   ### MAIN FUNCTIONS ###
 
-  constructor: (@position, @size, params) ->
+  constructor: (@position, @size, params = {}) ->
     for param, value in params
       @[param] = value
 

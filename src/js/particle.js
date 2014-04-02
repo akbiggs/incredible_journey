@@ -16,12 +16,12 @@
         acceleration: $V([0, 0])
       };
       properties = Object.extend(defaults, properties);
+      Particle.__super__.constructor.call(this, position, size);
       for (key in properties) {
         value = properties[key];
         this[key] = value;
       }
       this.lifespan = this.initialLifespan;
-      Particle.__super__.constructor.call(this, position, size, velocity, this.rotation);
     }
 
     Particle.prototype.update = function() {
