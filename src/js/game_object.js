@@ -20,10 +20,13 @@
     };
 
     GameObject.prototype.draw = function(ctx) {
+      ctx.rotate(this.rotation);
       if (GameObject.showHitboxes) {
         ctx.fillStyle = 'rgb(200,0,0)';
-        ctx.rotate(this.rotation);
-        ctx.fillRect(this.position.e(1), this.position.e(2), this.size.e(1), this.size.e(2));
+        ctx.beginPath();
+        ctx.arc(this.position.e(1), this.position.e(2), this.size.e(1) / 2, 0, Math.PI * 2, true);
+        ctx.closePath();
+        ctx.fill();
       }
       if (this.image != null) {
         return ctx.drawImage(this.image, this.position.e(1), this.position.e(2), this.size.e(1), this.size.e(2));

@@ -17,7 +17,7 @@
     return setInterval(function() {
       update();
       return draw(ctx);
-    }, 1000 / 30);
+    }, 1000 / 60);
   };
 
 }).call(this);

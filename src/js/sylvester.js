@@ -152,6 +152,10 @@ Vector.prototype = {
     return product;
   },
 
+  length: function() {
+    return Math.sqrt(this.dot(this))
+  },
+
   // Returns the vector product of the vector with the argument
   // Both vectors must have dimensionality 3
   cross: function(vector) {
