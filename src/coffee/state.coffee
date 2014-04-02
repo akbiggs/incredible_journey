@@ -1,9 +1,10 @@
 window.State = class State
 
-  constructor: ->
-    @enemies = @initializeEnemies(window.canvasCenter())
-    @particles = @testParticles(window.canvasCenter())
-    @players = [ new Player(window.canvasCenter()) ]
+  players: []
+  enemies: []
+  particles: []
+
+  ### GETTERS ###
 
   allObjects: ->
     return _.chain([])
@@ -11,6 +12,25 @@ window.State = class State
       .union(@particles)
       .union(@players)
       .value()
+
+  ### MAIN FUNCTIONS ###
+
+  constructor: ->
+    @enemies = @initializeEnemies(window.canvasCenter())
+    @particles = @testParticles(window.canvasCenter())
+    @players = [ new Player(window.canvasCenter()) ]
+
+  update: ->
+    for obj in @allObjects()
+      obj.update?()
+
+  draw: (ctx) ->
+    for obj in @allObjects()
+      ctx.save()
+      obj.draw?(ctx)
+      ctx.restore()
+
+  ### UTILITIES ###
 
   initializeEnemies: (center) ->
     _([1..5]).map (i) ->
@@ -25,14 +45,4 @@ window.State = class State
 
   testDialogues: (ctx) ->
     [ new Dialogue("I am a dumbface", ctx) ]
-
-  update: ->
-    for obj in @allObjects()
-      obj.update?()
-
-  draw: (ctx) ->
-    for obj in @allObjects()
-      ctx.save()
-      obj.draw?(ctx)
-      ctx.restore()
 

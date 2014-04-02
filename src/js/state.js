@@ -3,40 +3,27 @@
   var State;
 
   window.State = State = (function() {
-    function State() {
-      this.enemies = this.initializeEnemies(window.canvasCenter());
-      this.particles = this.testParticles(window.canvasCenter());
-      this.players = [new Player(window.canvasCenter())];
-    }
+    State.prototype.players = [];
+
+    State.prototype.enemies = [];
+
+    State.prototype.particles = [];
+
+
+    /* GETTERS */
 
     State.prototype.allObjects = function() {
       return _.chain([]).union(this.enemies).union(this.particles).union(this.players).value();
     };
 
-    State.prototype.initializeEnemies = function(center) {
-      return _([1, 2, 3, 4, 5]).map(function(i) {
-        var offset;
-        offset = Vector.Random(2).subtract([0.5, 0.5]);
-        return new NormalEnemy(center.add(offset.multiply(100)));
-      });
-    };
 
-    State.prototype.testParticles = function(center) {
-      var _i, _results;
-      return _((function() {
-        _results = [];
-        for (_i = 1; _i <= 100; _i++){ _results.push(_i); }
-        return _results;
-      }).apply(this)).map(function(i) {
-        var offset;
-        offset = $V([(Math.random() * 2) - 1, (Math.random() * 2) - 1]);
-        return new Particle(center.add(offset.multiply(50)), $V([10, 10]), $V([Math.random(), Math.random()]).multiply(2), 'rgb(200, 0, 0)');
-      });
-    };
+    /* MAIN FUNCTIONS */
 
-    State.prototype.testDialogues = function(ctx) {
-      return [new Dialogue("I am a dumbface", ctx)];
-    };
+    function State() {
+      this.enemies = this.initializeEnemies(window.canvasCenter());
+      this.particles = this.testParticles(window.canvasCenter());
+      this.players = [new Player(window.canvasCenter())];
+    }
 
     State.prototype.update = function() {
       var obj, _i, _len, _ref, _results;
@@ -62,6 +49,34 @@
         _results.push(ctx.restore());
       }
       return _results;
+    };
+
+
+    /* UTILITIES */
+
+    State.prototype.initializeEnemies = function(center) {
+      return _([1, 2, 3, 4, 5]).map(function(i) {
+        var offset;
+        offset = Vector.Random(2).subtract([0.5, 0.5]);
+        return new NormalEnemy(center.add(offset.multiply(100)));
+      });
+    };
+
+    State.prototype.testParticles = function(center) {
+      var _i, _results;
+      return _((function() {
+        _results = [];
+        for (_i = 1; _i <= 100; _i++){ _results.push(_i); }
+        return _results;
+      }).apply(this)).map(function(i) {
+        var offset;
+        offset = $V([(Math.random() * 2) - 1, (Math.random() * 2) - 1]);
+        return new Particle(center.add(offset.multiply(50)), $V([10, 10]), $V([Math.random(), Math.random()]).multiply(2), 'rgb(200, 0, 0)');
+      });
+    };
+
+    State.prototype.testDialogues = function(ctx) {
+      return [new Dialogue("I am a dumbface", ctx)];
     };
 
     return State;
