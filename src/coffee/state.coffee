@@ -17,4 +17,6 @@ window.State = class State
 
   draw: (ctx) ->
     _(@objects).each (obj) ->
+      ctx.save()
       obj.draw(ctx)
+      ctx.restore()
