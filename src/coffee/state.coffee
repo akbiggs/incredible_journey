@@ -4,7 +4,7 @@ window.State = class State
 
   initializeObjects: ->
     center = $V([200, 200])
-    return [new Player(center)] + @initializeEnemies()
+    return _([new Player(center)]).union(@initializeEnemies(center))
 
   initializeEnemies: (center) ->
     _([1..5]).map (i) ->

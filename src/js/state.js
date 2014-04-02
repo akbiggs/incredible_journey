@@ -10,7 +10,7 @@
     State.prototype.initializeObjects = function() {
       var center;
       center = $V([200, 200]);
-      return [new Player(center)] + this.initializeEnemies();
+      return _([new Player(center)]).union(this.initializeEnemies(center));
     };
 
     State.prototype.initializeEnemies = function(center) {
