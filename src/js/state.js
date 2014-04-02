@@ -3,14 +3,10 @@
   var State;
 
   window.State = State = (function() {
-    State.prototype.enemies = State.initializeEnemies(center);
-
-    State.prototype.particles = State.testParticles(center);
-
-    State.prototype.players = [new Player(center)];
-
     function State() {
-      return;
+      this.enemies = this.initializeEnemies(window.canvasCenter());
+      this.particles = this.testParticles(window.canvasCenter());
+      this.players = [new Player(window.canvasCenter())];
     }
 
     State.prototype.allObjects = function() {
@@ -38,13 +34,17 @@
       });
     };
 
+    State.prototype.testDialogues = function(ctx) {
+      return [new Dialogue("I am a dumbface", ctx)];
+    };
+
     State.prototype.update = function() {
       var obj, _i, _len, _ref, _results;
       _ref = this.allObjects();
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         obj = _ref[_i];
-        _results.push(obj.update());
+        _results.push(typeof obj.update === "function" ? obj.update() : void 0);
       }
       return _results;
     };
@@ -56,7 +56,9 @@
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         obj = _ref[_i];
         ctx.save();
-        obj.draw(ctx);
+        if (typeof obj.draw === "function") {
+          obj.draw(ctx);
+        }
         _results.push(ctx.restore());
       }
       return _results;

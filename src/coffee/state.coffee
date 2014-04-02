@@ -1,11 +1,9 @@
 window.State = class State
 
-  enemies: @initializeEnemies(center)
-  particles: @testParticles(center)
-  players: [ new Player(center) ]
-
   constructor: ->
-    return
+    @enemies = @initializeEnemies(window.canvasCenter())
+    @particles = @testParticles(window.canvasCenter())
+    @players = [ new Player(window.canvasCenter()) ]
 
   allObjects: ->
     return _.chain([])
@@ -25,12 +23,16 @@ window.State = class State
       return new Particle(center.add(offset.multiply(50)),
         $V([10, 10]), $V([Math.random(), Math.random()]).multiply(2), 'rgb(200, 0, 0)')
 
+  testDialogues: (ctx) ->
+    [ new Dialogue("I am a dumbface", ctx) ]
+
   update: ->
     for obj in @allObjects()
-      obj.update()
+      obj.update?()
 
   draw: (ctx) ->
     for obj in @allObjects()
       ctx.save()
-      obj.draw(ctx)
+      obj.draw?(ctx)
       ctx.restore()
+
