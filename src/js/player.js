@@ -47,7 +47,7 @@
       Player.__super__.update.call(this);
       if (kd.SPACE.isDown() && this.bulletCooldown <= 0) {
         this.bulletCooldown = COOLDOWN_TIME;
-        State.instance.bullets.push(new Bullet(this.position.add([0, 30]), $V([30, 30]), $V([25, 0]), $V([10, 0]), 0.2));
+        State.instance.bullets.push(new Bullet(this.position.add([20, 30]), $V([30, 30]), $V([25, 0]), $V([10, 0]), 0.2));
       }
       if (this.bulletCooldown > 0) {
         this.bulletCooldown--;

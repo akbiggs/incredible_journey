@@ -28,3 +28,8 @@ window.Wave = class Wave
 
   value: ->
     Math.sin(@angle)
+
+window.Support = class Support
+  createBufferArray: ->
+    array = []
+    array.bufferAdd = (element) ->
