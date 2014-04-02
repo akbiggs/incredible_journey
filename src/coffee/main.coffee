@@ -1,4 +1,4 @@
-window.myTest = ->
+window.loadGame = ->
   state = new State()
 
   canvas = document.getElementById('game')
@@ -8,8 +8,8 @@ window.myTest = ->
     state.update()
 
   draw = (ctx) ->
-    ctx.clearRect(0, 0, 400, 400)
-
+    ctx.fillStyle = "white";
+    ctx.fillRect(0, 0, canvas.width, canvas.height)
     state.draw(ctx)
 
   setInterval ->
