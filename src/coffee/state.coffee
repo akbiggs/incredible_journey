@@ -2,6 +2,7 @@ window.State = class State
 
   @instance: null
 
+
   screenSize: Vector.Zero(2)
 
   players: []

@@ -1,5 +1,6 @@
 FPS = 60
 
+
 window.loadGame = ->
 
   canvas = document.getElementById('game')

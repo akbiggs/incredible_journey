@@ -1,30 +1,40 @@
-window.Pulser = class Pulser
-
 window.GameObject = class GameObject
 
-  @showHitboxes: yes
+  @showHitboxes: true
 
 
+  position: null
+  size: null
+  velocity: null
+
+  rotation: 0
+  scale: 1
   image: null
 
-  constructor: (@position, @size, @velocity = $V([0, 0]), @rotation = 0, @scale = 1) ->
-    @image = Img.frankie
-    @wave = new Wave(0)
+  wave: new Wave(0)
 
-  center: ->
-    @position.add(@halfSize())
+  ### GETTERS ###
 
-  halfSize: ->
+  getCenter: ->
+    @position.add(@getHalfSize())
+
+  getHalfSize: ->
     @size.x(1/2)
 
+  ### MAIN FUNCTIONS ###
+
+  constructor: (@position, @size, params) ->
+    for param, value in params
+      @[param] = value
+
+    @image = Img.frankie
 
   update: ->
     @wave.update()
     @position = @position.add(@velocity)
 
   draw: (ctx) ->
-    center = @center()
-
+    center = @getCenter()
     ctx.translate(center.e(1), center.e(2))
 
     if GameObject.showHitboxes
@@ -33,7 +43,6 @@ window.GameObject = class GameObject
       ctx.arc(0, 0, @size.e(1) / 2, 0, Math.PI*2, true)
       ctx.closePath();
       ctx.fill();
-      #ctx.fillRect(0, 0, @size.e(1), @size.e(2))
 
     ctx.rotate(@rotation + @wave.value() * 0.2)
     scale = @scale + @wave.value() * 0.1
