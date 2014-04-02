@@ -37,10 +37,11 @@
 
     /* MAIN FUNCTIONS */
 
-    function GameObject(position, size, params) {
+    function GameObject(position, size, velocity, params) {
       var param, value, _i, _len;
       this.position = position;
       this.size = size;
+      this.velocity = velocity != null ? velocity : Vector.Zero(2);
       if (params == null) {
         params = {};
       }

@@ -16,7 +16,7 @@
         acceleration: $V([0, 0])
       };
       properties = Object.extend(defaults, properties);
-      Particle.__super__.constructor.call(this, position, size);
+      Particle.__super__.constructor.call(this, position, size, velocity);
       for (key in properties) {
         value = properties[key];
         this[key] = value;

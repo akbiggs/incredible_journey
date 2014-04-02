@@ -1,13 +1,15 @@
 window.Particle = class Particle extends GameObject
   constructor: (position, size, velocity, color, properties) ->
+
     defaults =
       rotation: 0
       rotationDelta: Math.random() / 20
       initialLifespan: 20
       acceleration: $V([0, 0])
+
     properties = Object.extend(defaults, properties)
 
-    super(position, size)
+    super(position, size, velocity)
 
     for key, value of properties
       @[key] = value

@@ -26,7 +26,7 @@ window.GameObject = class GameObject
 
   ### MAIN FUNCTIONS ###
 
-  constructor: (@position, @size, params = {}) ->
+  constructor: (@position, @size, @velocity = Vector.Zero(2), params = {}) ->
     for param, value in params
       @[param] = value
 
