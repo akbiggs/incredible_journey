@@ -11,6 +11,21 @@
       Player.__super__.constructor.call(this, position, $V([100, 100]));
     }
 
+    Player.prototype.update = function() {
+      if (kd.W.isDown()) {
+        this.position = this.position.add([0, -1]);
+      }
+      if (kd.S.isDown()) {
+        this.position = this.position.add([0, 1]);
+      }
+      if (kd.A.isDown()) {
+        this.position = this.position.add([-1, 0]);
+      }
+      if (kd.D.isDown()) {
+        return this.position = this.position.add([1, 0]);
+      }
+    };
+
     return Player;
 
   })(GameObject);
