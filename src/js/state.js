@@ -29,7 +29,9 @@
 
     State.prototype.draw = function(ctx) {
       return _(this.objects).each(function(obj) {
-        return obj.draw(ctx);
+        ctx.save();
+        obj.draw(ctx);
+        return ctx.restore();
       });
     };
 
