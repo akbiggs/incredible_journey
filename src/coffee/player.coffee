@@ -35,7 +35,7 @@ window.Player = class Player extends GameObject
 
     if kd.SPACE.isDown() && @bulletCooldown <= 0
       @bulletCooldown = COOLDOWN_TIME
-      State.instance.bullets.push new Bullet(@position.add([0, 30]), $V([30, 30]), $V([25, 0]), $V([10, 0]), 0.1) #TODO: Use better add
+      State.instance.bullets.push new Bullet(@position.add([0, 30]), $V([30, 30]), $V([25, 0]), $V([10, 0]), 0.2) #TODO: Use better add
 
     if @bulletCooldown > 0
       @bulletCooldown--

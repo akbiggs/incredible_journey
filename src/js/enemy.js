@@ -8,7 +8,8 @@
     __extends(NormalEnemy, _super);
 
     function NormalEnemy(position) {
-      NormalEnemy.__super__.constructor.call(this, position, $V([15, 15]));
+      NormalEnemy.__super__.constructor.call(this, position, $V([70, 70]));
+      this.wave = new Wave(0.1);
     }
 
     return NormalEnemy;

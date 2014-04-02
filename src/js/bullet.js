@@ -33,6 +33,7 @@
         enemy = _ref[_i];
         if (enemy.isRadialCollidingWith(this)) {
           State.instance.enemies = _(State.instance.enemies).without(enemy);
+          State.instance.bullets = _(State.instance.bullets).without(this);
         }
       }
       if (!this.withinScreen()) {
