@@ -3,20 +3,24 @@
   var State;
 
   window.State = State = (function() {
+    State.prototype.enemies = State.initializeEnemies(center);
+
+    State.prototype.particles = State.testParticles(center);
+
+    State.prototype.players = [new Player(center)];
+
     function State() {
-      this.objects = this.initializeObjects();
+      return;
     }
 
-    State.prototype.initializeObjects = function() {
-      var center;
-      center = $V([200, 200]);
-      return _.chain([new Player(center)]).union(this.initializeEnemies(center)).union(this.testParticles(center)).value();
+    State.prototype.allObjects = function() {
+      return _.chain([]).union(this.enemies).union(this.particles).union(this.players).value();
     };
 
     State.prototype.initializeEnemies = function(center) {
       return _([1, 2, 3, 4, 5]).map(function(i) {
         var offset;
-        offset = $V([(Math.random() * 2) - 1, (Math.random() * 2) - 1]);
+        offset = Vector.Random(2).subtract([0.5, 0.5]);
         return new NormalEnemy(center.add(offset.multiply(100)));
       });
     };
@@ -36,7 +40,7 @@
 
     State.prototype.update = function() {
       var obj, _i, _len, _ref, _results;
-      _ref = this.objects;
+      _ref = this.allObjects();
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         obj = _ref[_i];
@@ -47,7 +51,7 @@
 
     State.prototype.draw = function(ctx) {
       var obj, _i, _len, _ref, _results;
-      _ref = this.objects;
+      _ref = this.allObjects();
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         obj = _ref[_i];
