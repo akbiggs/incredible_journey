@@ -3,14 +3,14 @@
   var State;
 
   window.State = State = (function() {
-    function State(ctx) {
-      this.objects = this.initializeObjects(ctx);
+    function State() {
+      this.objects = this.initializeObjects();
     }
 
-    State.prototype.initializeObjects = function(ctx) {
+    State.prototype.initializeObjects = function() {
       var center;
       center = $V([200, 200]);
-      return _.chain([new Player(center)]).union(this.initializeEnemies(center)).union(this.testParticles(center)).union(this.testDialogues(ctx)).value();
+      return _.chain([new Player(center)]).union(this.initializeEnemies(center)).union(this.testParticles(center)).value();
     };
 
     State.prototype.initializeEnemies = function(center) {

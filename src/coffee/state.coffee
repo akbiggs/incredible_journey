@@ -1,13 +1,13 @@
 window.State = class State
-  constructor: (ctx) ->
-    @objects = @initializeObjects(ctx)
+  constructor: () ->
+    @objects = @initializeObjects()
 
-  initializeObjects: (ctx) ->
+  initializeObjects: () ->
     center = $V([200, 200])
     return _.chain([new Player(center)])
       .union(@initializeEnemies(center))
       .union(@testParticles(center))
-      .union(@testDialogues(ctx))
+      #.union(@testDialogues(ctx))
       .value()
 
   initializeEnemies: (center) ->
