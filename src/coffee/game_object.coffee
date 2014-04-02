@@ -11,15 +11,16 @@ window.GameObject = class GameObject
     @image = Img.frankie
     @wave = new Wave(0)
 
+  center: ->
+    @position.add(@halfSize())
+
+  halfSize: ->
+    @size.x(1/2)
+
+
   update: ->
     @wave.update()
     @position = @position.add(@velocity)
-
-  center: ->
-    @position.add(@centerOffset())
-
-  centerOffset: ->
-    @size.x(1/2)
 
   draw: (ctx) ->
     center = @center()

@@ -24,17 +24,17 @@
       this.wave = new Wave(0);
     }
 
+    GameObject.prototype.center = function() {
+      return this.position.add(this.halfSize());
+    };
+
+    GameObject.prototype.halfSize = function() {
+      return this.size.x(1 / 2);
+    };
+
     GameObject.prototype.update = function() {
       this.wave.update();
       return this.position = this.position.add(this.velocity);
-    };
-
-    GameObject.prototype.center = function() {
-      return this.position.add(this.centerOffset());
-    };
-
-    GameObject.prototype.centerOffset = function() {
-      return this.size.x(1 / 2);
     };
 
     GameObject.prototype.draw = function(ctx) {
