@@ -7,6 +7,7 @@ window.State = class State
     return _.chain([new Player(center)])
       .union(@initializeEnemies(center))
       .union(@testParticles(center))
+      .value()
 
   initializeEnemies: (center) ->
     _([1..5]).map (i) ->
@@ -20,11 +21,11 @@ window.State = class State
         $V([10, 10]), $V([Math.random(), Math.random()]).multiply(2), 'rgb(200, 0, 0)')
 
   update: ->
-    _(@objects).each (obj) ->
+    for obj in @objects
       obj.update()
 
   draw: (ctx) ->
-    _(@objects).each (obj) ->
+    for obj in @objects
       ctx.save()
       obj.draw(ctx)
       ctx.restore()

@@ -9,11 +9,24 @@ window.GameObject = class GameObject
   update: ->
     @position = @position.add(@velocity)
 
+  center: ->
+    @position.add(@centerOffset())
+
+  centerOffset: ->
+    @size.x(1/2)
+
   draw: (ctx) ->
+    center = @center()
+    negCenterOffset = @centerOffset().x(-1)
+
+    ctx.translate(center.e(1), center.e(2))
+    ctx.rotate(@rotation)
+    ctx.translate(negCenterOffset.e(1), negCenterOffset.e(2))
+
     if GameObject.showHitboxes
       ctx.fillStyle = 'rgb(200,0,0)'
-      ctx.rotate(@rotation)
-      ctx.fillRect(@position.e(1), @position.e(2), @size.e(1), @size.e(2))
+      ctx.fillRect(0, 0, @size.e(1), @size.e(2))
 
     if @image?
-      ctx.drawImage(@image, @position.e(1), @position.e(2), @size.e(1), @size.e(2))
+
+      ctx.drawImage(@image, 0, 0, @size.e(1), @size.e(2))

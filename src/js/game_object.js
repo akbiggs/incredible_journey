@@ -19,14 +19,27 @@
       return this.position = this.position.add(this.velocity);
     };
 
+    GameObject.prototype.center = function() {
+      return this.position.add(this.centerOffset());
+    };
+
+    GameObject.prototype.centerOffset = function() {
+      return this.size.x(1 / 2);
+    };
+
     GameObject.prototype.draw = function(ctx) {
+      var center, negCenterOffset;
+      center = this.center();
+      negCenterOffset = this.centerOffset().x(-1);
+      ctx.translate(center.e(1), center.e(2));
+      ctx.rotate(this.rotation);
+      ctx.translate(negCenterOffset.e(1), negCenterOffset.e(2));
       if (GameObject.showHitboxes) {
         ctx.fillStyle = 'rgb(200,0,0)';
-        ctx.rotate(this.rotation);
-        ctx.fillRect(this.position.e(1), this.position.e(2), this.size.e(1), this.size.e(2));
+        ctx.fillRect(0, 0, this.size.e(1), this.size.e(2));
       }
       if (this.image != null) {
-        return ctx.drawImage(this.image, this.position.e(1), this.position.e(2), this.size.e(1), this.size.e(2));
+        return ctx.drawImage(this.image, 0, 0, this.size.e(1), this.size.e(2));
       }
     };
 
