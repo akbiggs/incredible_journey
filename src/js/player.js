@@ -8,7 +8,7 @@
     __extends(Player, _super);
 
     function Player(position) {
-      Player.__super__.constructor.call(this, position, $V([30, 30]));
+      Player.__super__.constructor.call(this, position, $V([100, 100]));
     }
 
     return Player;

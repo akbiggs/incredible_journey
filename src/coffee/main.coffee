@@ -5,6 +5,7 @@ window.loadGame = ->
   ctx = canvas.getContext('2d')
 
   update = ->
+    kd.tick()
     state.update()
 
   draw = (ctx) ->

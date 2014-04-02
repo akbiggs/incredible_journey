@@ -6,6 +6,7 @@
     canvas = document.getElementById('game');
     ctx = canvas.getContext('2d');
     update = function() {
+      kd.tick();
       return state.update();
     };
     draw = function(ctx) {
