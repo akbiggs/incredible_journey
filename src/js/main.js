@@ -13,6 +13,7 @@
     state = new State();
     update = function() {
       kd.tick();
+      TWEEN.update();
       return state.update();
     };
     draw = function(ctx) {

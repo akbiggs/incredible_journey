@@ -12,6 +12,8 @@ window.loadGame = ->
 
   update = ->
     kd.tick()
+    TWEEN.update()
+
     state.update()
 
   draw = (ctx) ->

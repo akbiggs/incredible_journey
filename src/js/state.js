@@ -3,14 +3,14 @@
   var State;
 
   window.State = State = (function() {
-    function State() {
-      this.objects = this.initializeObjects();
+    function State(ctx) {
+      this.objects = this.initializeObjects(ctx);
     }
 
-    State.prototype.initializeObjects = function() {
+    State.prototype.initializeObjects = function(ctx) {
       var center;
       center = $V([200, 200]);
-      return _.chain([new Player(center)]).union(this.initializeEnemies(center)).union(this.testParticles(center)).value();
+      return _.chain([new Player(center)]).union(this.initializeEnemies(center)).union(this.testParticles(center)).union(this.testDialogues(ctx)).value();
     };
 
     State.prototype.initializeEnemies = function(center) {
@@ -34,13 +34,17 @@
       });
     };
 
+    State.prototype.testDialogues = function(ctx) {
+      return [new Dialogue("I am a dumbface", ctx)];
+    };
+
     State.prototype.update = function() {
       var obj, _i, _len, _ref, _results;
       _ref = this.objects;
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         obj = _ref[_i];
-        _results.push(obj.update());
+        _results.push(typeof obj.update === "function" ? obj.update() : void 0);
       }
       return _results;
     };
@@ -52,7 +56,9 @@
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         obj = _ref[_i];
         ctx.save();
-        obj.draw(ctx);
+        if (typeof obj.draw === "function") {
+          obj.draw(ctx);
+        }
         _results.push(ctx.restore());
       }
       return _results;
