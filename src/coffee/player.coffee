@@ -5,6 +5,8 @@ window.Player = class Player extends GameObject
 
   constructor: (position) ->
     super(position, $V([100, 100]))
+    @scale = 1.3
+    @wave = new Wave(0.1)
 
   update: ->
     accel = Vector.Zero(2)

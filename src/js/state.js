@@ -10,7 +10,7 @@
     State.prototype.initializeObjects = function() {
       var center;
       center = $V([200, 200]);
-      return _.chain([new Player(center)]).union(this.initializeEnemies(center)).union(this.testParticles(center));
+      return _.chain([new Player(center)]).union(this.initializeEnemies(center)).union(this.testParticles(center)).value();
     };
 
     State.prototype.initializeEnemies = function(center) {
@@ -35,17 +35,27 @@
     };
 
     State.prototype.update = function() {
-      return _(this.objects).each(function(obj) {
-        return obj.update();
-      });
+      var obj, _i, _len, _ref, _results;
+      _ref = this.objects;
+      _results = [];
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        obj = _ref[_i];
+        _results.push(obj.update());
+      }
+      return _results;
     };
 
     State.prototype.draw = function(ctx) {
-      return _(this.objects).each(function(obj) {
+      var obj, _i, _len, _ref, _results;
+      _ref = this.objects;
+      _results = [];
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        obj = _ref[_i];
         ctx.save();
         obj.draw(ctx);
-        return ctx.restore();
-      });
+        _results.push(ctx.restore());
+      }
+      return _results;
     };
 
     return State;

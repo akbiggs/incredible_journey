@@ -13,6 +13,8 @@
 
     function Player(position) {
       Player.__super__.constructor.call(this, position, $V([100, 100]));
+      this.scale = 1.3;
+      this.wave = new Wave(0.1);
     }
 
     Player.prototype.update = function() {
