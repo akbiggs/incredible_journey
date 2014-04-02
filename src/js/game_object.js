@@ -5,20 +5,25 @@
   window.GameObject = GameObject = (function() {
     GameObject.showHitboxes = true;
 
+    GameObject.prototype.image = null;
+
     function GameObject(position, size) {
       this.position = position;
       this.size = size;
+      this.image = Img.frankie;
     }
 
     GameObject.prototype.update = function() {};
 
     GameObject.prototype.draw = function(ctx) {
-      ctx.save();
       if (GameObject.showHitboxes) {
         ctx.fillStyle = 'rgb(200,0,0)';
+        ctx.rotate(0.1);
         ctx.fillRect(this.position.e(1), this.position.e(2), this.size.e(1), this.size.e(2));
       }
-      return ctx.restore();
+      if (this.image != null) {
+        return ctx.drawImage(this.image, this.position.e(1), this.position.e(2), this.size.e(1), this.size.e(2));
+      }
     };
 
     return GameObject;

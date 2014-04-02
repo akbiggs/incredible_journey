@@ -11,7 +11,8 @@
     draw = function(ctx) {
       ctx.fillStyle = "white";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-      return state.draw(ctx);
+      state.draw(ctx);
+      return ctx.drawImage(Img.frankie, 10, 10, 100, 100);
     };
     return setInterval(function() {
       update();
