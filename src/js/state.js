@@ -10,7 +10,7 @@
     State.prototype.initializeObjects = function() {
       var center;
       center = $V([200, 200]);
-      return _([new Player(center)]).union(this.initializeEnemies(center));
+      return _.chain([new Player(center)]).union(this.initializeEnemies(center)).union(this.testParticles(center));
     };
 
     State.prototype.initializeEnemies = function(center) {
@@ -18,6 +18,19 @@
         var offset;
         offset = $V([(Math.random() * 2) - 1, (Math.random() * 2) - 1]);
         return new NormalEnemy(center.add(offset.multiply(100)));
+      });
+    };
+
+    State.prototype.testParticles = function(center) {
+      var _i, _results;
+      return _((function() {
+        _results = [];
+        for (_i = 1; _i <= 100; _i++){ _results.push(_i); }
+        return _results;
+      }).apply(this)).map(function(i) {
+        var offset;
+        offset = $V([(Math.random() * 2) - 1, (Math.random() * 2) - 1]);
+        return new Particle(center.add(offset.multiply(50)), $V([10, 10]), $V([Math.random(), Math.random()]).multiply(2), 'rgb(200, 0, 0)');
       });
     };
 
