@@ -6,7 +6,8 @@
     function Img() {}
 
     Img.data = {
-      frankie: "images/frankie.png"
+      frankie: "images/frankie.png",
+      frankieOpen: "images/frankieOpen.png"
     };
 
     Img.load = function() {

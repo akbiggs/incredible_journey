@@ -3,7 +3,7 @@
   var GameObject;
 
   window.GameObject = GameObject = (function() {
-    GameObject.showHitboxes = true;
+    GameObject.showHitboxes = false;
 
     GameObject.prototype.position = null;
 
@@ -27,11 +27,11 @@
     };
 
     GameObject.prototype.getHalfSize = function() {
-      return this.size.x(1 / 2);
+      return this.size.x(0.5);
     };
 
     GameObject.prototype.getRadius = function() {
-      return this.size.e(0) / 2;
+      return this.size.e(1) / 2;
     };
 
 
@@ -58,9 +58,8 @@
     };
 
     GameObject.prototype.draw = function(ctx) {
-      var center, scale;
-      center = this.getCenter();
-      ctx.translate(center.e(1), center.e(2));
+      var scale;
+      ctx.translate(this.position.e(1), this.position.e(2));
       if (GameObject.showHitboxes) {
         ctx.fillStyle = 'rgb(200,0,0)';
         ctx.beginPath();
@@ -79,8 +78,12 @@
 
     /* UTILITIES */
 
-    GameObject.prototype.isCollidingWith = function(otherGameObject) {
-      return false;
+    GameObject.prototype.isRadialCollidingWith = function(other) {
+      return this.position.distanceFrom(other.position) < this.getRadius() + other.getRadius();
+    };
+
+    GameObject.prototype.withinScreen = function() {
+      return this.position.e(1) > 0 && this.position.e(1) < State.instance.screenSize.e(1) && this.position.e(2) > 0 && this.position.e(2) < State.instance.screenSize.e(2);
     };
 
     return GameObject;

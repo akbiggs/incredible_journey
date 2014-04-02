@@ -13,6 +13,8 @@
 
     State.prototype.particles = [];
 
+    State.prototype.bullets = [];
+
 
     /* GETTERS */
 
@@ -21,7 +23,7 @@
     };
 
     State.prototype.getAllGameObjects = function() {
-      return _.chain([]).union(this.enemies).union(this.particles).union(this.players).value();
+      return _.chain([]).union(this.enemies).union(this.particles).union(this.players).union(this.bullets).value();
     };
 
 
@@ -32,7 +34,7 @@
       this.screenSize = screenSize;
       this.enemies = this.initializeEnemies(this.getScreenCenter());
       this.particles = this.testParticles(this.getScreenCenter());
-      this.players = [new Player(this.getScreenCenter())];
+      this.players = [new Player(Vector.Zero(2))];
     }
 
     State.prototype.update = function() {

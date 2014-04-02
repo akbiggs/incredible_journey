@@ -2,6 +2,7 @@ window.Img = class Img
 
   @data:  
     frankie: "images/frankie.png"
+    frankieOpen: "images/frankieOpen.png"
 
   @load: ->
     for name, url of @data

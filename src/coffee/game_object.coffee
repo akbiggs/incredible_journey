@@ -1,6 +1,6 @@
 window.GameObject = class GameObject
 
-  @showHitboxes: true
+  @showHitboxes: false
 
 
   position: null
@@ -19,10 +19,10 @@ window.GameObject = class GameObject
     return @position.add(@getHalfSize())
 
   getHalfSize: ->
-    return @size.x(1/2)
+    return @size.x(0.5)
 
   getRadius: ->
-    return @size.e(0) / 2
+    return @size.e(1) / 2
 
   ### MAIN FUNCTIONS ###
 
@@ -37,8 +37,7 @@ window.GameObject = class GameObject
     @position = @position.add(@velocity)
 
   draw: (ctx) ->
-    center = @getCenter()
-    ctx.translate(center.e(1), center.e(2))
+    ctx.translate(@position.e(1), @position.e(2))
 
     if GameObject.showHitboxes
       ctx.fillStyle = 'rgb(200,0,0)'
@@ -56,6 +55,8 @@ window.GameObject = class GameObject
 
   ### UTILITIES ###
 
-  isCollidingWith: (otherGameObject) ->
-    return false
+  isRadialCollidingWith: (other) ->
+    return @position.distanceFrom(other.position) < @getRadius() + other.getRadius()
 
+  withinScreen: ->
+    return @position.e(1) > 0 and @position.e(1) < State.instance.screenSize.e(1) and @position.e(2) > 0 and @position.e(2) < State.instance.screenSize.e(2)

@@ -8,6 +8,9 @@ window.State = class State
   players: []
   enemies: []
   particles: []
+  bullets: []
+
+  # TODO: Write methods for adding and removing safely to these lists...
 
   ### GETTERS ###
 
@@ -19,6 +22,7 @@ window.State = class State
       .union(@enemies)
       .union(@particles)
       .union(@players)
+      .union(@bullets)
       .value()
 
   ### MAIN FUNCTIONS ###
@@ -30,7 +34,7 @@ window.State = class State
 
     @enemies = @initializeEnemies(@getScreenCenter())
     @particles = @testParticles(@getScreenCenter())
-    @players = [ new Player(@getScreenCenter()) ]
+    @players = [ new Player(Vector.Zero(2)) ]
 
   update: ->
     for obj in @getAllGameObjects()
