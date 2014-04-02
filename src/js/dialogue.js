@@ -25,8 +25,8 @@
       ctx.font = this.font;
       textSize = ctx.measureText(this.text);
       this.enterTween = new TWEEN.Tween(this).to({
-        x: window.canvasCenter().e(1) - textSize.width / 2,
-        y: window.canvasCenter().e(2),
+        x: State.instance.getScreenCenter().e(1) - textSize.width / 2,
+        y: State.instance.getScreenCenter().e(2),
         alpha: 1
       }, this.easeInTime).easing(TWEEN.Easing.Elastic.In).onUpdate((function(_this) {
         return function() {

@@ -1,12 +1,19 @@
 window.State = class State
 
+  @instance: null
+
+  screenSize: Vector.Zero(2)
+
   players: []
   enemies: []
   particles: []
 
   ### GETTERS ###
 
-  allObjects: ->
+  getScreenCenter: ->
+    return @screenSize.multiply(0.5)
+
+  getAllGameObjects: ->
     return _.chain([])
       .union(@enemies)
       .union(@particles)
@@ -15,17 +22,21 @@ window.State = class State
 
   ### MAIN FUNCTIONS ###
 
-  constructor: ->
-    @enemies = @initializeEnemies(window.canvasCenter())
-    @particles = @testParticles(window.canvasCenter())
-    @players = [ new Player(window.canvasCenter()) ]
+  constructor: (screenSize) ->
+    State.instance = @
+
+    @screenSize = screenSize
+
+    @enemies = @initializeEnemies(@getScreenCenter())
+    @particles = @testParticles(@getScreenCenter())
+    @players = [ new Player(@getScreenCenter()) ]
 
   update: ->
-    for obj in @allObjects()
+    for obj in @getAllGameObjects()
       obj.update?()
 
   draw: (ctx) ->
-    for obj in @allObjects()
+    for obj in @getAllGameObjects()
       ctx.save()
       obj.draw?(ctx)
       ctx.restore()

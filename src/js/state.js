@@ -3,6 +3,10 @@
   var State;
 
   window.State = State = (function() {
+    State.instance = null;
+
+    State.prototype.screenSize = Vector.Zero(2);
+
     State.prototype.players = [];
 
     State.prototype.enemies = [];
@@ -12,22 +16,28 @@
 
     /* GETTERS */
 
-    State.prototype.allObjects = function() {
+    State.prototype.getScreenCenter = function() {
+      return this.screenSize.multiply(0.5);
+    };
+
+    State.prototype.getAllGameObjects = function() {
       return _.chain([]).union(this.enemies).union(this.particles).union(this.players).value();
     };
 
 
     /* MAIN FUNCTIONS */
 
-    function State() {
-      this.enemies = this.initializeEnemies(window.canvasCenter());
-      this.particles = this.testParticles(window.canvasCenter());
-      this.players = [new Player(window.canvasCenter())];
+    function State(screenSize) {
+      State.instance = this;
+      this.screenSize = screenSize;
+      this.enemies = this.initializeEnemies(this.getScreenCenter());
+      this.particles = this.testParticles(this.getScreenCenter());
+      this.players = [new Player(this.getScreenCenter())];
     }
 
     State.prototype.update = function() {
       var obj, _i, _len, _ref, _results;
-      _ref = this.allObjects();
+      _ref = this.getAllGameObjects();
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         obj = _ref[_i];
@@ -38,7 +48,7 @@
 
     State.prototype.draw = function(ctx) {
       var obj, _i, _len, _ref, _results;
-      _ref = this.allObjects();
+      _ref = this.getAllGameObjects();
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         obj = _ref[_i];

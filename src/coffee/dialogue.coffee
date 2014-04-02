@@ -21,7 +21,7 @@ window.Dialogue = class Dialogue
     textSize = ctx.measureText(@text)
 
     @enterTween = new TWEEN.Tween(@)
-      .to({x: window.canvasCenter().e(1) - textSize.width/2, y: window.canvasCenter().e(2), alpha: 1}, @easeInTime)
+      .to({x: State.instance.getScreenCenter().e(1) - textSize.width/2, y: State.instance.getScreenCenter().e(2), alpha: 1}, @easeInTime)
       .easing( TWEEN.Easing.Elastic.In )
       .onUpdate =>
         console.log "Posiiton is now: " + @x + ", " + @y

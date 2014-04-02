@@ -1,15 +1,11 @@
+FPS = 60
+
 window.loadGame = ->
 
   canvas = document.getElementById('game')
   ctx = canvas.getContext('2d')
 
-  window.canvasSize = ->
-    $V [canvas.width, canvas.height]
-
-  window.canvasCenter = ->
-    window.canvasSize().multiply(1/2)
-
-  state = new State()
+  state = new State($V([canvas.width, canvas.height]))
 
   update = ->
     kd.tick()
@@ -24,4 +20,4 @@ window.loadGame = ->
   setInterval ->
     update()
     draw(ctx)
-  , 1000/60
+  , 1000 / FPS
