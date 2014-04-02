@@ -24,7 +24,7 @@
       this.multiplyFactor = multiplyFactor;
     }
 
-    Bullet.prototype.update = function() {
+    Bullet.prototype.update = function(state) {
       var enemy, _i, _len, _ref;
       this.velocity = this.velocity.add(this.desiredVelocity.subtract(this.velocity).multiply(this.multiplyFactor));
       Bullet.__super__.update.call(this);
@@ -32,12 +32,12 @@
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         enemy = _ref[_i];
         if (enemy.isRadialCollidingWith(this)) {
-          State.instance.enemies = _(State.instance.enemies).without(enemy);
-          State.instance.bullets = _(State.instance.bullets).without(this);
+          state.removeLater("enemies", enemy);
+          state.removeLater("bullets", this);
         }
       }
       if (!this.withinScreen()) {
-        return State.instance.bullets = _(State.instance.bullets).without(this);
+        return state.removeLater("bullets", this);
       }
     };
 

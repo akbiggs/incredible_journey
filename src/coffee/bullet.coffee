@@ -10,15 +10,15 @@ window.Bullet = class Bullet extends GameObject
     @desiredVelocity = desiredVelocity
     @multiplyFactor = multiplyFactor
 
-  update: ->
+  update: (state) ->
     @velocity = @velocity.add(@desiredVelocity.subtract(@velocity).multiply(@multiplyFactor))
 
     super()
 
     for enemy in State.instance.enemies
       if enemy.isRadialCollidingWith(@)
-        State.instance.enemies = _(State.instance.enemies).without(enemy) #TODO: Use better remove
-        State.instance.bullets = _(State.instance.bullets).without(@) #TODO: Use better remove
+        state.removeLater("enemies", enemy)
+        state.removeLater("bullets", @)
 
     if not @withinScreen()
-      State.instance.bullets = _(State.instance.bullets).without(@) #TODO: Use better remove
+      state.removeLater("bullets", @)

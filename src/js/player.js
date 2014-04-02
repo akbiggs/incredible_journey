@@ -21,7 +21,7 @@
       this.wave = new Wave(0.1);
     }
 
-    Player.prototype.update = function() {
+    Player.prototype.update = function(state) {
       var accel, enemy, _i, _len, _ref, _results;
       accel = Vector.Zero(2);
       if (kd.W.isDown()) {
@@ -44,10 +44,10 @@
       if (this.velocity.length() > MAX_SPEED) {
         this.velocity = this.velocity.toUnitVector().multiply(MAX_SPEED);
       }
-      Player.__super__.update.call(this);
+      Player.__super__.update.call(this, state);
       if (kd.SPACE.isDown() && this.bulletCooldown <= 0) {
         this.bulletCooldown = COOLDOWN_TIME;
-        State.instance.bullets.push(new Bullet(this.position.add([20, 30]), $V([30, 30]), $V([25, 0]), $V([10, 0]), 0.2));
+        state.bullets.push(new Bullet(this.position.add([20, 30]), $V([30, 30]), $V([25, 0]), $V([10, 0]), 0.2));
       }
       if (this.bulletCooldown > 0) {
         this.bulletCooldown--;

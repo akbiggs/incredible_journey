@@ -11,7 +11,7 @@ window.Player = class Player extends GameObject
     @scale = 1.3
     @wave = new Wave(0.1)
 
-  update: ->
+  update: (state) ->
     accel = Vector.Zero(2)
 
     if kd.W.isDown()
@@ -31,11 +31,11 @@ window.Player = class Player extends GameObject
     if @velocity.length() > MAX_SPEED
       @velocity = @velocity.toUnitVector().multiply(MAX_SPEED)
 
-    super()
+    super(state)
 
     if kd.SPACE.isDown() && @bulletCooldown <= 0
       @bulletCooldown = COOLDOWN_TIME
-      State.instance.bullets.push new Bullet(@position.add([20, 30]), $V([30, 30]), $V([25, 0]), $V([10, 0]), 0.2) #TODO: Use better add
+      state.bullets.push new Bullet(@position.add([20, 30]), $V([30, 30]), $V([25, 0]), $V([10, 0]), 0.2) #TODO: Use better add
 
     if @bulletCooldown > 0
       @bulletCooldown--

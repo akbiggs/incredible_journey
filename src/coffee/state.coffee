@@ -9,6 +9,9 @@ window.State = class State
   enemies: []
   particles: []
   bullets: []
+  
+  _gameObjectLists: ["players", "enemies", "particles", "bullets"]
+  _deferredRemoveList: []
 
   # TODO: Write methods for adding and removing safely to these lists...
 
@@ -18,12 +21,7 @@ window.State = class State
     return @screenSize.multiply(0.5)
 
   getAllGameObjects: ->
-    return _.chain([])
-      .union(@enemies)
-      .union(@particles)
-      .union(@players)
-      .union(@bullets)
-      .value()
+    return _(@_gameObjectLists).reduce(((memo, listName) => memo.concat @[listName]), [])
 
   ### MAIN FUNCTIONS ###
 
@@ -32,13 +30,14 @@ window.State = class State
 
     @screenSize = screenSize
 
-    @enemies = @initializeEnemies(@getScreenCenter())
-    @particles = @testParticles(@getScreenCenter())
+    @enemies = @_initializeEnemies(@getScreenCenter())
+    @particles = @_testParticles(@getScreenCenter())
     @players = [ new Player(Vector.Zero(2)) ]
 
   update: ->
     for obj in @getAllGameObjects()
-      obj.update?()
+      obj.update?(@)
+    @_applyDeferredRemoveList()
 
   draw: (ctx) ->
     for obj in @getAllGameObjects()
@@ -48,17 +47,25 @@ window.State = class State
 
   ### UTILITIES ###
 
-  initializeEnemies: (center) ->
+  removeLater: (listName, element) ->
+    @_deferredRemoveList.push { list: listName, element: element }
+
+  _applyDeferredRemoveList: ->
+    for pair in @_deferredRemoveList
+      @[pair.list] = _(@[pair.list]).without(pair.element)
+    @_deferredRemoveList = []
+
+  _initializeEnemies: (center) ->
     _([1..5]).map (i) ->
       offset = Vector.Random(2).subtract [0.5, 0.5]
       return new NormalEnemy(center.add(offset.multiply(100)))
 
-  testParticles: (center) ->
+  _testParticles: (center) ->
     _([1..100]).map (i) ->
       offset = $V([(Math.random() * 2) - 1, (Math.random() * 2) - 1])
       return new Particle(center.add(offset.multiply(50)),
         $V([10, 10]), $V([Math.random(), Math.random()]).multiply(2), 'rgb(200, 0, 0)')
 
-  testDialogues: (ctx) ->
+  _testDialogues: (ctx) ->
     [ new Dialogue("I am a dumbface", ctx) ]
 

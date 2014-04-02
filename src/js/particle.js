@@ -24,11 +24,11 @@
       this.lifespan = this.initialLifespan;
     }
 
-    Particle.prototype.update = function() {
+    Particle.prototype.update = function(state) {
       this.lifespan = Math.max(0, this.lifespan - 1);
       this.velocity = this.velocity.add(this.acceleration);
       this.rotation += this.rotationDelta;
-      return Particle.__super__.update.call(this);
+      return Particle.__super__.update.call(this, state);
     };
 
     Particle.prototype.draw = function(ctx) {

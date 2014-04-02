@@ -16,11 +16,11 @@ window.Particle = class Particle extends GameObject
 
     @lifespan = @initialLifespan
 
-  update: ->
+  update: (state) ->
     @lifespan = Math.max(0, @lifespan - 1)
     @velocity = @velocity.add(@acceleration)
     @rotation += @rotationDelta
-    super()
+    super(state)
 
   draw: (ctx) ->
     ctx.globalAlpha = @lifespan / @initialLifespan

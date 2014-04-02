@@ -52,7 +52,7 @@
       this.image = Img.frankie;
     }
 
-    GameObject.prototype.update = function() {
+    GameObject.prototype.update = function(state) {
       this.wave.update();
       return this.position = this.position.add(this.velocity);
     };

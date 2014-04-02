@@ -32,7 +32,7 @@ window.GameObject = class GameObject
 
     @image = Img.frankie
 
-  update: ->
+  update: (state) ->
     @wave.update()
     @position = @position.add(@velocity)
 

@@ -15,6 +15,10 @@
 
     State.prototype.bullets = [];
 
+    State.prototype._gameObjectLists = ["players", "enemies", "particles", "bullets"];
+
+    State.prototype._deferredRemoveList = [];
+
 
     /* GETTERS */
 
@@ -23,7 +27,11 @@
     };
 
     State.prototype.getAllGameObjects = function() {
-      return _.chain([]).union(this.enemies).union(this.particles).union(this.players).union(this.bullets).value();
+      return _(this._gameObjectLists).reduce(((function(_this) {
+        return function(memo, listName) {
+          return memo.concat(_this[listName]);
+        };
+      })(this)), []);
     };
 
 
@@ -32,20 +40,21 @@
     function State(screenSize) {
       State.instance = this;
       this.screenSize = screenSize;
-      this.enemies = this.initializeEnemies(this.getScreenCenter());
-      this.particles = this.testParticles(this.getScreenCenter());
+      this.enemies = this._initializeEnemies(this.getScreenCenter());
+      this.particles = this._testParticles(this.getScreenCenter());
       this.players = [new Player(Vector.Zero(2))];
     }
 
     State.prototype.update = function() {
-      var obj, _i, _len, _ref, _results;
+      var obj, _i, _len, _ref;
       _ref = this.getAllGameObjects();
-      _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         obj = _ref[_i];
-        _results.push(typeof obj.update === "function" ? obj.update() : void 0);
+        if (typeof obj.update === "function") {
+          obj.update(this);
+        }
       }
-      return _results;
+      return this._applyDeferredRemoveList();
     };
 
     State.prototype.draw = function(ctx) {
@@ -66,7 +75,24 @@
 
     /* UTILITIES */
 
-    State.prototype.initializeEnemies = function(center) {
+    State.prototype.removeLater = function(listName, element) {
+      return this._deferredRemoveList.push({
+        list: listName,
+        element: element
+      });
+    };
+
+    State.prototype._applyDeferredRemoveList = function() {
+      var pair, _i, _len, _ref;
+      _ref = this._deferredRemoveList;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        pair = _ref[_i];
+        this[pair.list] = _(this[pair.list]).without(pair.element);
+      }
+      return this._deferredRemoveList = [];
+    };
+
+    State.prototype._initializeEnemies = function(center) {
       return _([1, 2, 3, 4, 5]).map(function(i) {
         var offset;
         offset = Vector.Random(2).subtract([0.5, 0.5]);
@@ -74,7 +100,7 @@
       });
     };
 
-    State.prototype.testParticles = function(center) {
+    State.prototype._testParticles = function(center) {
       var _i, _results;
       return _((function() {
         _results = [];
@@ -87,7 +113,7 @@
       });
     };
 
-    State.prototype.testDialogues = function(ctx) {
+    State.prototype._testDialogues = function(ctx) {
       return [new Dialogue("I am a dumbface", ctx)];
     };
 
