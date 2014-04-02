@@ -7,23 +7,40 @@
   window.Player = Player = (function(_super) {
     __extends(Player, _super);
 
+    Player.prototype.acceleration = 0.2;
+
+    Player.prototype.maxSpeed = 5;
+
     function Player(position) {
       Player.__super__.constructor.call(this, position, $V([100, 100]));
+      this.scale = 1.3;
+      this.wave = new Wave(0.1);
     }
 
     Player.prototype.update = function() {
+      var accel;
+      accel = Vector.Zero(2);
       if (kd.W.isDown()) {
-        this.position = this.position.add([0, -1]);
+        accel = accel.add([0, -this.acceleration]);
       }
       if (kd.S.isDown()) {
-        this.position = this.position.add([0, 1]);
+        accel = accel.add([0, this.acceleration]);
       }
       if (kd.A.isDown()) {
-        this.position = this.position.add([-1, 0]);
+        accel = accel.add([-this.acceleration, 0]);
       }
       if (kd.D.isDown()) {
-        return this.position = this.position.add([1, 0]);
+        accel = accel.add([this.acceleration, 0]);
       }
+      if (accel.eql([0, 0])) {
+        this.velocity = this.velocity.multiply(0.95);
+      } else {
+        this.velocity = this.velocity.add(accel);
+      }
+      if (this.velocity.length() > this.maxSpeed) {
+        this.velocity = this.velocity.toUnitVector().multiply(this.maxSpeed);
+      }
+      return Player.__super__.update.call(this);
     };
 
     return Player;

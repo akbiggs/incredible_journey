@@ -18,3 +18,13 @@ window.Point = class Point
       new Point(@x / p, @y / p)
     else
       new Point(@x / p.x, @y / p.y)
+
+window.Wave = class Wave
+  constructor: (@speed) ->
+    @angle = 0
+
+  update: ->
+    @angle += @speed;
+
+  value: ->
+    Math.sin(@angle)

@@ -24,4 +24,4 @@ window.loadGame = ->
   setInterval ->
     update()
     draw(ctx)
-  , 1000/30
+  , 1000/60
