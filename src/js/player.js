@@ -8,7 +8,7 @@
 
   MAX_SPEED = 5;
 
-  COOLDOWN_TIME = 10;
+  COOLDOWN_TIME = 30;
 
   window.Player = Player = (function(_super) {
     __extends(Player, _super);

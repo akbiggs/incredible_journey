@@ -40,9 +40,12 @@
     function State(screenSize) {
       State.instance = this;
       this.screenSize = screenSize;
-      this.enemies = this._initializeEnemies(this.getScreenCenter());
-      this.particles = this._testParticles(this.getScreenCenter());
       this.players = [new Player(Vector.Zero(2))];
+      setInterval((function(_this) {
+        return function() {
+          return _this.enemies.push(new NormalEnemy($V([_this.screenSize.e(1) + 50, Math.random() * _this.screenSize.e(2)])));
+        };
+      })(this), 300);
     }
 
     State.prototype.update = function() {

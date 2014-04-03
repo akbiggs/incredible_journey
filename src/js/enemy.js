@@ -9,8 +9,18 @@
 
     function NormalEnemy(position) {
       NormalEnemy.__super__.constructor.call(this, position, $V([70, 70]));
-      this.wave = new Wave(0.1);
+      this.wave = new Wave(0.05);
+      this.desiredVelocity = $V([-5, 0]);
+      this.multiplyFactor = 0.1;
     }
+
+    NormalEnemy.prototype.update = function(state) {
+      this.velocity = this.velocity.add(this.desiredVelocity.subtract(this.velocity).multiply(this.multiplyFactor));
+      NormalEnemy.__super__.update.call(this, state);
+      if (this.position.e(1) < 0) {
+        return state.removeLater("enemies", this);
+      }
+    };
 
     return NormalEnemy;
 

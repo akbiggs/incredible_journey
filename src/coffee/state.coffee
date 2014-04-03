@@ -30,9 +30,13 @@ window.State = class State
 
     @screenSize = screenSize
 
-    @enemies = @_initializeEnemies(@getScreenCenter())
-    @particles = @_testParticles(@getScreenCenter())
+    #@enemies = @_initializeEnemies(@getScreenCenter())
+    #@particles = @_testParticles(@getScreenCenter())
     @players = [ new Player(Vector.Zero(2)) ]
+
+    setInterval =>
+      @enemies.push new NormalEnemy($V([@screenSize.e(1) + 50, Math.random() * @screenSize.e(2)]))
+    , 300
 
   update: ->
     for obj in @getAllGameObjects()
