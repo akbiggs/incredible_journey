@@ -45,9 +45,9 @@
         this.velocity = this.velocity.toUnitVector().multiply(MAX_SPEED);
       }
       Player.__super__.update.call(this, state);
-      if (kd.SPACE.isDown() && this.bulletCooldown <= 0) {
+      if (Mouse.isDown && this.bulletCooldown <= 0) {
         this.bulletCooldown = COOLDOWN_TIME;
-        state.bullets.push(new Bullet(this.position.add([20, 30]), $V([30, 30]), $V([25, 0]), $V([10, 0]), 0.2));
+        state.bullets.push(new Bullet(this.position.add([20, 30]), $V([30, 30]), $V([25, 0]), Mouse.position.subtract(this.position).toUnitVector().multiply(10), 0.2));
       }
       if (this.bulletCooldown > 0) {
         this.bulletCooldown--;

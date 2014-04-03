@@ -4,7 +4,7 @@
 
   FPS = 60;
 
-  window.loadGame = function() {
+  window.addLoadEvent(function() {
     var bgCanvas, bgCtx, canvas, clearCanvas, ctx, draw, state, temp1Canvas, temp1Ctx, temp2Canvas, temp2Ctx, update;
     canvas = document.getElementById('game');
     ctx = canvas.getContext('2d');
@@ -36,7 +36,7 @@
       temp1Ctx.drawImage(bgCanvas, 0, 0);
       temp1Ctx.restore();
       temp1Ctx.drawImage(canvas, 0, 0);
-      bgCtx.globalAlpha = 0.8;
+      bgCtx.globalAlpha = 1;
       bgCtx.drawImage(temp1Canvas, 0, 0);
       bgCtx.globalAlpha = 1;
       temp1Ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -63,8 +63,12 @@
       temp2Ctx.drawImage(canvas, 1, -1);
       temp2Ctx.drawImage(canvas, -1, 1);
       temp2Ctx.drawImage(canvas, -1, -1);
+      temp2Ctx.drawImage(canvas, 2, 2);
+      temp2Ctx.drawImage(canvas, 2, -2);
+      temp2Ctx.drawImage(canvas, -2, 2);
+      temp2Ctx.drawImage(canvas, -2, -2);
       temp2Ctx.globalCompositeOperation = "source-in";
-      clearCanvas(temp2Canvas, temp2Ctx, "black");
+      clearCanvas(temp2Canvas, temp2Ctx, "white");
       return temp2Ctx.globalCompositeOperation = "source-over";
     };
     clearCanvas = function(canvas, ctx, color) {
@@ -78,6 +82,6 @@
       update();
       return draw(ctx);
     }, 1000 / FPS);
-  };
+  });
 
 }).call(this);

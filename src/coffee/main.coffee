@@ -1,7 +1,7 @@
 FPS = 60
 
 
-window.loadGame = ->
+window.addLoadEvent ->
 
   canvas = document.getElementById('game')
   ctx = canvas.getContext('2d')
@@ -42,7 +42,7 @@ window.loadGame = ->
     temp1Ctx.drawImage(canvas, 0, 0)
     
     # Draw the new background from temp1Ctx to bgCtx
-    bgCtx.globalAlpha = 0.8
+    bgCtx.globalAlpha = 1
     bgCtx.drawImage(temp1Canvas, 0, 0)
     bgCtx.globalAlpha = 1
 
@@ -81,8 +81,12 @@ window.loadGame = ->
     temp2Ctx.drawImage(canvas, 1, -1)
     temp2Ctx.drawImage(canvas, -1, 1)
     temp2Ctx.drawImage(canvas, -1, -1)
+    temp2Ctx.drawImage(canvas, 2, 2)
+    temp2Ctx.drawImage(canvas, 2, -2)
+    temp2Ctx.drawImage(canvas, -2, 2)
+    temp2Ctx.drawImage(canvas, -2, -2)
     temp2Ctx.globalCompositeOperation = "source-in"
-    clearCanvas(temp2Canvas, temp2Ctx, "black")
+    clearCanvas(temp2Canvas, temp2Ctx, "white")
     temp2Ctx.globalCompositeOperation = "source-over"
 
   clearCanvas = (canvas, ctx, color = "white") ->

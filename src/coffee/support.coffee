@@ -31,14 +31,20 @@ window.Wave = class Wave
 
 window.Mouse = class Mouse
 
-  @canvas: null
+  @isDown: false
+  @position: Vector.Zero(2)
 
-  window.addLoadEvent ->
-    Mouse.canvas = $("#game")[0]
+  @_canvas: null
 
-  @getPosition: (canvas, evt) ->
-    rect = canvas.getBoundingClientRect();
-    return {
-      x: evt.clientX - rect.left,
-      y: evt.clientY - rect.top
-    }
+  window.addLoadEvent =>
+    Mouse._canvas = $("#game")[0]
+    Mouse._canvas.addEventListener('mousemove', (evt) =>
+      rect = Mouse._canvas.getBoundingClientRect();
+      @position = $V([evt.clientX - rect.left, evt.clientY - rect.top])
+    , false)
+    Mouse._canvas.addEventListener('mousedown', (evt) =>
+      @isDown = true
+    , false);
+    Mouse._canvas.addEventListener('mouseup', (evt) =>
+      @isDown = false
+    , false);

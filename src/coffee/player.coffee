@@ -33,9 +33,9 @@ window.Player = class Player extends GameObject
 
     super(state)
 
-    if kd.SPACE.isDown() && @bulletCooldown <= 0
+    if Mouse.isDown && @bulletCooldown <= 0
       @bulletCooldown = COOLDOWN_TIME
-      state.bullets.push new Bullet(@position.add([20, 30]), $V([30, 30]), $V([25, 0]), $V([10, 0]), 0.2) #TODO: Use better add
+      state.bullets.push new Bullet(@position.add([20, 30]), $V([30, 30]), $V([25, 0]), Mouse.position.subtract(@position).toUnitVector().multiply(10), 0.2) #TODO: Use better add
 
     if @bulletCooldown > 0
       @bulletCooldown--

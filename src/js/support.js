@@ -57,20 +57,26 @@
   window.Mouse = Mouse = (function() {
     function Mouse() {}
 
-    Mouse.canvas = null;
+    Mouse.isDown = false;
+
+    Mouse.position = Vector.Zero(2);
+
+    Mouse._canvas = null;
 
     window.addLoadEvent(function() {
-      return Mouse.canvas = $("#game")[0];
+      Mouse._canvas = $("#game")[0];
+      Mouse._canvas.addEventListener('mousemove', function(evt) {
+        var rect;
+        rect = Mouse._canvas.getBoundingClientRect();
+        return Mouse.position = $V([evt.clientX - rect.left, evt.clientY - rect.top]);
+      }, false);
+      Mouse._canvas.addEventListener('mousedown', function(evt) {
+        return Mouse.isDown = true;
+      }, false);
+      return Mouse._canvas.addEventListener('mouseup', function(evt) {
+        return Mouse.isDown = false;
+      }, false);
     });
-
-    Mouse.getPosition = function(canvas, evt) {
-      var rect;
-      rect = canvas.getBoundingClientRect();
-      return {
-        x: evt.clientX - rect.left,
-        y: evt.clientY - rect.top
-      };
-    };
 
     return Mouse;
 
