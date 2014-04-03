@@ -28,3 +28,17 @@ window.Wave = class Wave
 
   value: ->
     Math.sin(@angle)
+
+window.Mouse = class Mouse
+
+  @canvas: null
+
+  window.addLoadEvent ->
+    Mouse.canvas = $("#game")[0]
+
+  @getPosition: (canvas, evt) ->
+    rect = canvas.getBoundingClientRect();
+    return {
+      x: evt.clientX - rect.left,
+      y: evt.clientY - rect.top
+    }

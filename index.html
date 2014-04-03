@@ -1,28 +1,33 @@
 <!DOCTYPE html>
 <html>
-    <head>
-      <link href="css/style.css" rel="stylesheet" type="text/css">
+	<head>
+		<link href="css/style.css" rel="stylesheet" type="text/css">
 
-      <script src='lib/underscore-min.js'></script>
-      <script src='lib/sylvester.js'></script>
-      <script src='lib/keydrown.js'></script>
-      <script src="lib/tween.min.js"></script>
-      <script src='lib/imported_util.js'></script>
+		<script src='lib/underscore-min.js'></script>
+		<script src='lib/sylvester.js'></script>
+		<script src='lib/keydrown.js'></script>
+		<script src="lib/tween.min.js"></script>
+		<script src='lib/imported_util.js'></script>
 
-      <script src='src/js/dialogue.js'></script>
-      <script src='src/js/resources.js'></script>
-      <script src='src/js/support.js'></script>
+		<script src='src/js/dialogue.js'></script>
+		<script src='src/js/resources.js'></script>
+	 	<script src='src/js/support.js'></script>
 
-      <script src='src/js/game_object.js'></script>
-      <script src='src/js/particle.js'></script>
-      <script src='src/js/enemy.js'></script>
-      <script src='src/js/bullet.js'></script>
-      <script src='src/js/player.js'></script>
+		<script src='src/js/game_object.js'></script>
+		<script src='src/js/particle.js'></script>
+		<script src='src/js/enemy.js'></script>
+		<script src='src/js/bullet.js'></script>
+		<script src='src/js/player.js'></script>
 
-      <script src='src/js/state.js'></script>
-      <script src='src/js/main.js'></script>
-    </head>
-    <body onload='loadGame()'>
-    	<canvas id='game' width='800' height='600'></canvas>
-    </body>
+	  <script src='src/js/state.js'></script>
+	  <script src='src/js/main.js'></script>
+	</head>
+	<body onload='loadGame()'>
+		<div class="canvas-container">
+			<canvas id='temp1' width='800' height='600' style="display: none;"></canvas>
+			<canvas id='bg' width='800' height='600'></canvas>
+			<canvas id='temp2' width='800' height='600'></canvas>
+			<canvas id='game' width='800' height='600'></canvas>
+		</div>
+	</body>
 </html>

@@ -1,3 +1,13 @@
 body {
 	background-color: #DDDDDD;
 }
+
+.canvas-container {
+	position: relative;
+}
+
+.canvas-container canvas {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
