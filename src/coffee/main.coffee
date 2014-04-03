@@ -71,6 +71,13 @@ window.addLoadEvent ->
     bgCtx.drawImage(temp1Canvas, 0, 0)
     bgCtx.globalAlpha = 1
 
+    # HAX: Fix me later...
+    if state._flash
+      temp1Ctx.clearRect(0, 0, canvas.width, canvas.height);
+      temp2Ctx.clearRect(0, 0, canvas.width, canvas.height);
+      bgCtx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
     # Draw plain scene.
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     state.draw(ctx)

@@ -34,6 +34,7 @@
         if (enemy.isRadialCollidingWith(this)) {
           state.removeLater("enemies", enemy);
           state.removeLater("bullets", this);
+          state.flash();
         }
       }
       if (!this.withinScreen()) {

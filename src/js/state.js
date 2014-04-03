@@ -19,6 +19,8 @@
 
     State.prototype._deferredRemoveList = [];
 
+    State.prototype._flash = false;
+
 
     /* GETTERS */
 
@@ -61,22 +63,27 @@
     };
 
     State.prototype.draw = function(ctx) {
-      var obj, _i, _len, _ref, _results;
+      var obj, _i, _len, _ref;
       _ref = this.getAllGameObjects();
-      _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         obj = _ref[_i];
         ctx.save();
         if (typeof obj.draw === "function") {
           obj.draw(ctx);
         }
-        _results.push(ctx.restore());
+        ctx.restore();
       }
-      return _results;
+      if (this._flash) {
+        return this._flash = false;
+      }
     };
 
 
     /* UTILITIES */
+
+    State.prototype.flash = function() {
+      return this._flash = true;
+    };
 
     State.prototype.removeLater = function(listName, element) {
       return this._deferredRemoveList.push({

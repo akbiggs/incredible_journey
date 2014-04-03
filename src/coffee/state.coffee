@@ -12,6 +12,7 @@ window.State = class State
   
   _gameObjectLists: ["players", "enemies", "particles", "bullets"]
   _deferredRemoveList: []
+  _flash: false
 
   # TODO: Write methods for adding and removing safely to these lists...
 
@@ -49,7 +50,16 @@ window.State = class State
       obj.draw?(ctx)
       ctx.restore()
 
+    if @_flash
+      #ctx.fillStyle = "white"
+      #ctx.fillRect(0,0,State.instance.screenSize.e(1), State.instance.screenSize.e(2))
+      @_flash = false
+
+
   ### UTILITIES ###
+
+  flash: ->
+    @_flash = true
 
   removeLater: (listName, element) ->
     @_deferredRemoveList.push { list: listName, element: element }

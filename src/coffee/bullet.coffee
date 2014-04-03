@@ -19,6 +19,7 @@ window.Bullet = class Bullet extends GameObject
       if enemy.isRadialCollidingWith(@)
         state.removeLater("enemies", enemy)
         state.removeLater("bullets", @)
+        state.flash()
 
     if not @withinScreen()
       state.removeLater("bullets", @)

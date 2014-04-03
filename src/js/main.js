@@ -56,6 +56,12 @@
       bgCtx.globalAlpha = 0.8;
       bgCtx.drawImage(temp1Canvas, 0, 0);
       bgCtx.globalAlpha = 1;
+      if (state._flash) {
+        temp1Ctx.clearRect(0, 0, canvas.width, canvas.height);
+        temp2Ctx.clearRect(0, 0, canvas.width, canvas.height);
+        bgCtx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       state.draw(ctx);
       temp2Ctx.clearRect(0, 0, canvas.width, canvas.height);
